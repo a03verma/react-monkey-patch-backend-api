@@ -1,7 +1,7 @@
 // array in local storage for registered users
 let users = [{ name: 'test' }];
 
-export function configureFakeBackend() {
+export const MonkeyPatchAPI=()=> {
   let realFetch = window.fetch;
   window.fetch = function (url:any, opts:any) {
     const { method, headers } = opts;
@@ -13,10 +13,6 @@ export function configureFakeBackend() {
 
       function handleRoute() {
         switch (true) {
-          case url.endsWith('/users/authenticate') && method === 'POST':
-            return authenticate();
-          case url.endsWith('/users/register') && method === 'POST':
-            return register();
           case url.endsWith('/users') && method === 'GET':
             return getUsers();
           default:
@@ -32,13 +28,11 @@ export function configureFakeBackend() {
   
 
       function getUsers() {
-        return ok(users);
+        return ok({name:"abc"});
       }
-
       function ok(body:any) {
         resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(body)) });
     }
-
     });
   };
 }
