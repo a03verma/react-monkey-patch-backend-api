@@ -1,5 +1,7 @@
 // array in local storage for registered users
-let users = [{ name: 'test' }];
+//let users = [{ name: 'test' }]
+
+import users from "./mock/users.json"
 
 export const MonkeyPatchAPI=()=> {
   let realFetch = window.fetch;
@@ -28,10 +30,10 @@ export const MonkeyPatchAPI=()=> {
   
 
       function getUsers() {
-        return ok({name:"abc"});
+        return ok(users);
       }
       function ok(body:any) {
-        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(body)) });
+        resolve({ ok: true, json: () => Promise.resolve(JSON.stringify(body)) });
     }
     });
   };

@@ -17,9 +17,13 @@ export const Users = () => {
 
     fromFetch(url, {
       method: 'GET',
-      selector: (response) =>  response.text(),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      selector: (response) => response.json(),
     }).subscribe((response) => {
-        console.log("#####")
+      console.log('#####');
       setResValue(response.value);
       setShowUsers(true);
       console.log(response);
